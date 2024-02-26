@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Polls {
+model Poll {
   id        String   @id @default(uuid())
   title     String
   createdAt DateTime @default(now())
@@ -17,9 +17,9 @@ model Polls {
 }
 
 model PollOption {
-  id      String @id @default(uuid())
-  title   String
-  pollsId String
+  id     String @id @default(uuid())
+  title  String
+  pollId String
 
-  poll Polls @relation(fields: [pollsId], references: [id])
+  poll Poll @relation(fields: [pollId], references: [id])
 }
