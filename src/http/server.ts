@@ -1,6 +1,6 @@
+import { prisma } from "../lib/prisma";
 import fastify from "fastify";
 import { z } from "zod";
-import { prisma } from "../lib/prisma";
 
 const PORT = 3333;
 
