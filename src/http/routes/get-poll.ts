@@ -14,6 +14,14 @@ export async function getPoll(app: FastifyInstance) {
             where: {
                 id: pollId,
             },
+            include: {
+                options: {
+                    select: {
+                        id: true,
+                        title: true,
+                    },
+                },
+            },
         });
 
         console.log(`route_served: get/polls/:${pollId}`);
