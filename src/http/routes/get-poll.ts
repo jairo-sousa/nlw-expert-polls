@@ -9,7 +9,6 @@ export async function getPoll(app: FastifyInstance) {
         });
 
         const { pollId } = getPollParams.parse(request.params);
-
         const poll = await prisma.poll.findUnique({
             where: {
                 id: pollId,

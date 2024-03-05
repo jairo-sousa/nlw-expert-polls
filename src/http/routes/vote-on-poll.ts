@@ -13,8 +13,8 @@ export async function voteOnPoll(app: FastifyInstance) {
             pollId: z.string().uuid(),
         });
 
-        const { pollOptionId } = voteOnPollBody.parse(request.params);
         const { pollId } = voteOnPollParams.parse(request.params);
+        const { pollOptionId } = voteOnPollBody.parse(request.body);
 
         let { sessionId } = request.cookies;
 
@@ -29,7 +29,15 @@ export async function voteOnPoll(app: FastifyInstance) {
             });
         }
 
+        const vote = await prisma.vote.create({
+            data: {
+                sessionId,
+                pollId,
+                pollOptionId,
+            },
+        });
+
         console.log(`route_served: get/polls/:${pollOptionId}/votes`);
-        return reply.status(201).send({ sessionId });
+        return reply.status(201).send(vote.id);
     });
 }
